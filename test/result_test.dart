@@ -1,4 +1,4 @@
-import 'package:dart_result/dart_result.dart';
+import 'package:dart_result_option/dart_result_option.dart';
 import 'package:test/test.dart';
 
 void main() {

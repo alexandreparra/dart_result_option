@@ -5,6 +5,7 @@
 ///
 /// If you are curious on the inspiration behind this library check Rust's Result enum:
 /// https://doc.rust-lang.org/std/result/
-library dart_result;
+library dart_result_option;
 
-export 'src/dart_result.dart';
+export 'src/result.dart';
+export 'src/option.dart';

@@ -1,4 +1,4 @@
-import 'package:dart_result/dart_result.dart';
+import 'package:dart_result_option/dart_result_option.dart';
 
 void main() {
   // Match is the same as using a pattern match on an enum, it'll expose the Ok

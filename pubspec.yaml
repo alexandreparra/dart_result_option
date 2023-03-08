@@ -1,4 +1,4 @@
-name: dart_result
+name: dart_result_option
 description: A simple error handling library to help you always treat successes and failures.
 version: 1.0.0
 # homepage: https://www.example.com
