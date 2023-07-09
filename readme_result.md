@@ -193,7 +193,7 @@ sumPositive(2, -4).transformMatch<bool, String>((ok) {
 ```
 
 ## Notes
-There are notable packages which are already used for the same purpose as dart_result like the [dart](https://pub.dev/packages/dartz) package, but dartz is focused on implementing functional programming techniques in the most functional fashion, it's not just exposing the `Either` class. 
+There are notable packages which are already used for the same purpose as dart_result like the [dartz](https://pub.dev/packages/dartz) package, but dartz is focused on implementing functional programming style in Dart, it's not just exposing the `Either` class. 
 
 dart_result comes with just one purpose, handle success and failure, and makes readability way easier by just using simple class inheritance. 
 
