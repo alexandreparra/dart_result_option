@@ -24,7 +24,7 @@ void main() {
 
       final result = sumPositive(5, 5);
 
-      switch(result) {
+      switch (result) {
         case Ok(ok: int ok):
           expect(ok, 10);
           isOk = true;
