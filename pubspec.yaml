@@ -1,6 +1,6 @@
 name: dart_result_option
-description: A simple error handling library to help you always treat successes and failures.
-version: 1.0.0
+description: A simple error handling library to help you always treat successes and failures across your code.
+version: 2.0.0
 # homepage: https://www.example.com
 
 environment:
