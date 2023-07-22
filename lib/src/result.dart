@@ -1,3 +1,29 @@
+/*
+
+MIT License
+
+Copyright (c) 2023 Alexandre Parra
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+*/
+
 abstract class Result<T, E> {
   const Result();
 
@@ -5,7 +31,7 @@ abstract class Result<T, E> {
   /// For example: if a function Returns a Result<int, String>,
   /// and the return value is Ok(5), then the executed function for
   /// your match function is going to be the first anonymous function (the Ok function).
-  void match(Function(T ok) ok, Function(E err) err);
+  void match(Function(T ok) okFunc, Function(E err) errFunc);
 
   /// Execute the Ok or Err anonymous function and return the correspondent
   /// value from each function, this can be useful if your function body only
@@ -19,11 +45,11 @@ abstract class Result<T, E> {
   /// ```
   /// This means that if the executed function is the Err one, returnMatch
   /// will return an Err value and the same way around for the Ok function.
-  Result<T, E> returnMatch(T Function(T ok) ok, E Function(E err) err);
+  Result<T, E> returnMatch(T Function(T ok) okFunc, E Function(E err) errFunc);
 
   /// Narrows the return value of both the Err and Ok functions to a single type,
   /// in case you need `match` to return exactly the same type.
-  B narrowMatch<B>(B Function(T ok) ok, B Function(E err) err);
+  B narrowMatch<B>(B Function(T ok) okFunc, B Function(E err) errFunc);
 
   /// Transforms a Result with a set of types to another Result with other types. If
   /// you have a Result<int, Exception> but want to transform it into a Result<bool, String>
@@ -43,7 +69,7 @@ abstract class Result<T, E> {
   ///     );
   /// ```
   Result<TT, EE> transformMatch<TT, EE>(
-      TT Function(T ok) ok, EE Function(E err) err);
+      TT Function(T ok) okFunc, EE Function(E err) errFunc);
 
   /// Return true if the value is an Ok.
   bool get isOk;
@@ -53,28 +79,29 @@ abstract class Result<T, E> {
 }
 
 class Ok<T, E> extends Result<T, E> {
-  final T _ok;
-  const Ok(this._ok);
+  final T ok;
+
+  const Ok(this.ok);
 
   @override
-  void match(Function(T ok) ok, Function(E err) err) {
-    ok(_ok);
+  void match(Function(T ok) okFunc, Function(E err) errFunc) {
+    okFunc(this.ok);
   }
 
   @override
-  Result<T, E> returnMatch(T Function(T ok) ok, E Function(E err) err) {
-    return Ok(ok(_ok));
+  Result<T, E> returnMatch(T Function(T ok) okFunc, E Function(E err) errFunc) {
+    return Ok(okFunc(this.ok));
   }
 
   @override
-  B narrowMatch<B>(B Function(T ok) ok, B Function(E err) err) {
-    return ok(_ok);
+  B narrowMatch<B>(B Function(T ok) okFunc, B Function(E err) errFunc) {
+    return okFunc(this.ok);
   }
 
   @override
   Result<TT, EE> transformMatch<TT, EE>(
-      TT Function(T ok) ok, EE Function(E err) err) {
-    return Ok(ok(_ok));
+      TT Function(T ok) okFunc, EE Function(E err) errFunc) {
+    return Ok(okFunc(this.ok));
   }
 
   @override
@@ -85,28 +112,29 @@ class Ok<T, E> extends Result<T, E> {
 }
 
 class Err<T, E> extends Result<T, E> {
-  final E _err;
-  const Err(this._err);
+  final E err;
+
+  const Err(this.err);
 
   @override
-  void match(Function(T ok) ok, Function(E err) err) {
-    err(_err);
+  void match(Function(T ok) okFunc, Function(E err) errFunc) {
+    errFunc(this.err);
   }
 
   @override
-  Result<T, E> returnMatch(T Function(T ok) ok, E Function(E err) err) {
-    return Err(err(_err));
+  Result<T, E> returnMatch(T Function(T ok) okFunc, E Function(E err) errFunc) {
+    return Err(errFunc(this.err));
   }
 
   @override
-  B narrowMatch<B>(B Function(T ok) ok, B Function(E err) err) {
-    return err(_err);
+  B narrowMatch<B>(B Function(T ok) okFunc, B Function(E err) errFunc) {
+    return errFunc(this.err);
   }
 
   @override
   Result<TT, EE> transformMatch<TT, EE>(
-      TT Function(T ok) ok, EE Function(E err) err) {
-    return Err(err(_err));
+      TT Function(T ok) okFunc, EE Function(E err) errFunc) {
+    return Err(errFunc(this.err));
   }
 
   @override
