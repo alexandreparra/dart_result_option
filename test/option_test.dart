@@ -11,6 +11,23 @@ void main() {
     }
   }
 
+  group('Dart 3.0 test', () {
+    test('Test Option-Some-None with switch pattern', () {
+      bool isSome = false;
+      final option = testOption(5);
+
+      switch (option) {
+        case Some(value: var some):
+          expect(some, 25);
+          isSome = true;
+        case None():
+          isSome = false;
+      }
+
+      expect(isSome, true);
+    });
+  });
+
   group('Test a function that returns an Optional', () {
     test('Passing a value greater than 2 to testOption returns a Some<int>',
         () {
@@ -27,27 +44,27 @@ void main() {
 
   group('Use the unwrap method from Optional', () {
     test('Execute the Some branch of unwrap', () {
-      bool executedSomeBranch = false;
+      bool isSome = false;
 
       testOption(5).match((some) {
-        executedSomeBranch = true;
+        isSome = true;
       }, () {
-        executedSomeBranch = false;
+        isSome = false;
       });
 
-      expect(executedSomeBranch, true);
+      expect(isSome, true);
     });
 
     test('Execute the None branch of unwrap', () {
-      bool executedNoneBranch = false;
+      bool isNone = false;
 
       testOption(2).match((some) {
-        executedNoneBranch = false;
+        isNone = false;
       }, () {
-        executedNoneBranch = true;
+        isNone = true;
       });
 
-      expect(executedNoneBranch, true);
+      expect(isNone, true);
     });
   });
 

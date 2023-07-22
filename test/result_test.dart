@@ -18,15 +18,34 @@ void main() {
     }, (err) => Exception());
   }
 
+  group('Dart 3.0 tests', () {
+    test('Test Result-Ok-Err with switch pattern', () {
+      bool isOk = false;
+
+      final result = sumPositive(5, 5);
+
+      switch(result) {
+        case Ok(ok: int ok):
+          expect(ok, 10);
+          isOk = true;
+        case Err(err: Exception _):
+          isOk = false;
+      }
+
+      expect(isOk, true);
+      expect(isOk, result.isOk);
+    });
+  });
+
   group('match tests', () {
     test('Test match function with an err value', () {
-      bool isFalse = false;
+      bool resultIsErr = false;
 
       final result = sumPositive(2, -4);
-      result.match((ok) => isFalse = false, (err) => isFalse = true);
+      result.match((ok) => resultIsErr = false, (err) => resultIsErr = true);
 
-      expect(isFalse, true);
-      expect(isFalse, result.isErr);
+      expect(resultIsErr, true);
+      expect(resultIsErr, result.isErr);
     });
 
     test('Test match function with an ok value', () {
