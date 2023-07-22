@@ -61,14 +61,14 @@ class Some<T> implements Option<T> {
   }
 }
 
-class None<_> implements Option<_> {
+class None<T> implements Option<T> {
   const None();
 
   @override
   bool get isNone => true;
 
   @override
-  void match(Function(_ some) someFunc, Function() noneFunc) {
+  void match(Function(T some) someFunc, Function() noneFunc) {
     noneFunc();
   }
 }
