@@ -1,13 +1,10 @@
 name: dart_result_option
 description: A simple error handling library to help you always treat successes and failures across your code.
 version: 2.0.0
-# homepage: https://www.example.com
+repository: https://github.com/ccovenant/dart_result_option
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
-
-# dependencies:
-#   path: ^1.8.0
 
 dev_dependencies:
   lints: ^2.0.0
